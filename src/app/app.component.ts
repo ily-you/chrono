@@ -1,4 +1,5 @@
 import { Component, ReflectiveInjector } from '@angular/core';
+import { TimeItem } from './time-item';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +13,18 @@ export class AppComponent {
   public time = 0;
  
   private idInterval: number|null = null;
-  public arrayTime : Array<number> = [];
+  public arrayTime : Array<TimeItem> = [];
  
   public retenir(): void { 
-   this.arrayTime.push(this.time)
+   this.arrayTime.push({
+    time: this.time,
+    note: ''
+   });
+   
   }
   public removeItem(index: number): void {
-    if (index >= 0 && index < this.arrayTime.length) {
+    if (index >= 0 && index < this.arrayTime.length) { // supprimer un index existant dans mon tableau
       this.arrayTime.splice(index, 1);
-      console.log()
     }
   }
   public start(): void{
@@ -33,6 +37,7 @@ export class AppComponent {
     this.isStarted = false;
   this.stopTimer();
   this.time = 0;
+  this.arrayTime = [];
   }
 
   public pause(): void{
